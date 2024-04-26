@@ -8,7 +8,7 @@
 INT WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ INT nCmdShow)
 {
 
-    std::unique_ptr<Game> game = std::make_unique<Game>(L"Potest Engine 0.0.1");
+    std::unique_ptr<Game> game = std::make_unique<Game>(L"Wobblo 0.0.1");
 
     std::shared_ptr<SkinningVertexShader> skinningVertexShader = std::make_shared<SkinningVertexShader>(L"Shaders/SkinningShader.fx", "VS", "vs_5_0");
     if (FAILED(game->GetRenderer()->AddVertexShader(L"SkinningVertexShader", skinningVertexShader)))
@@ -110,7 +110,8 @@ INT WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
     if (FAILED(game->GetRenderer()->SetPixelShaderOfModel(L"Char", L"SkinningPixelShader")))
         return 0;
 
-    game->GetRenderer()->GetCamera()->SetCharacter(Char);
+
+    //game->GetRenderer()->GetCamera()->SetCharacter(Char);
     
     /*
     std::shared_ptr<Model> Stone = std::make_shared<Model>(L"../../Data/Stone/Stone.obj");

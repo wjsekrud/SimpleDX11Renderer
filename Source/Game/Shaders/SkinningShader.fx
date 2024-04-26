@@ -1,4 +1,4 @@
-#define NUM_LIGHTS (2)
+#define NUM_LIGHTS (10)
 
 static const unsigned int MAX_NUM_BONES = 256u;
 

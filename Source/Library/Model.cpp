@@ -412,6 +412,7 @@ UINT Model::GetNumIndices() const {
 void Model::Update(FLOAT deltaTime) {
 	m_timeSinceLoaded += deltaTime;
 	
+	
 	if (this->m_pScene->HasAnimations())
 	{
 		//OutputDebugStringA("HasAnimation");
