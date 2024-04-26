@@ -55,30 +55,6 @@ Model::Model(_In_ const std::filesystem::path& filePath)
 	, m_aTransforms() 
 {
 }
-/*
-HRESULT Model::Initialize(_In_ ID3D11Device* pDevice, _In_ ID3D11DeviceContext* pImmediateContext)
-{
-	HRESULT hr = S_OK;
-	Assimp::Importer importer;
-	const aiScene* pScene = importer.ReadFile(
-		m_filePath.string().c_str(),
-		ASSIMP_LOAD_FLAGS | aiProcess_ConvertToLeftHanded
-	);
-	if (pScene)
-	{
-		hr = initFromScene(pDevice, pImmediateContext, pScene, m_filePath);
-	}
-	else
-	{
-		hr = E_FAIL;
-		OutputDebugString(L"Error parsing ");
-		OutputDebugString(m_filePath.c_str());
-		OutputDebugString(L": ");
-		OutputDebugStringA(importer.GetErrorString());
-		OutputDebugString(L"\n");
-	}
-	return hr;
-}*/
 
 HRESULT Model::Initialize(_In_ ID3D11Device* pDevice, _In_ ID3D11DeviceContext* pImmediateContext)
 {
@@ -105,10 +81,7 @@ HRESULT Model::Initialize(_In_ ID3D11Device* pDevice, _In_ ID3D11DeviceContext* 
 		OutputDebugString(L"\n");
 	}
 
-	/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
-	TODO: Animation buffer (Animation Data) 추가
-	hint: .ByteWidth = static_cast<UINT>(sizeof(AnimationData) * m_aAnimationData.size()) 사용
-	-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
+
 	D3D11_BUFFER_DESC bd = { 
 		.ByteWidth = static_cast<UINT>(sizeof(AnimationData) * m_aAnimationData.size()),
 		.Usage = D3D11_USAGE_DEFAULT,
@@ -122,11 +95,6 @@ HRESULT Model::Initialize(_In_ ID3D11Device* pDevice, _In_ ID3D11DeviceContext* 
 	if (FAILED(hr))
 		return hr;
 
-	// Create the animation buffer
-
-	/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
-	TODO: CBSkinning Constant buffer 생성
-	-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
 	bd = { 
 		.ByteWidth = sizeof(CBSkinning),
 		.Usage = D3D11_USAGE_DEFAULT,
@@ -508,13 +476,6 @@ void Model::interpolatePosition(_Inout_ XMFLOAT3& outTranslate, _In_ FLOAT anima
 }
 
 
-/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
-TODO: Model::interpolateRotation() 구현
-
-hint: interpolatePosition() 함수 참고하여, rotation으로 바꾸어 구현.
-ConvertQuaternionToVector(), findRoataion() 등 사용.
-Quatrenion으로 구현.
--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
 void Model::interpolateRotation(_Inout_ XMVECTOR& outQuaternion, _In_ FLOAT animationTimeTicks, _In_ const aiNodeAnim* pNodeAnim)
 {
 
@@ -535,7 +496,7 @@ void Model::interpolateRotation(_Inout_ XMVECTOR& outQuaternion, _In_ FLOAT anim
 	
 	const aiQuaternion& start = pNodeAnim->mRotationKeys[uRotationIndex].mValue;
 	const aiQuaternion& end = pNodeAnim->mRotationKeys[uNextRotationIndex].mValue;
-	//
+
 	aiQuaternion quaternion;
 	aiQuaternion::Interpolate(quaternion, start, end, factor);
 	quaternion = start;
@@ -543,9 +504,7 @@ void Model::interpolateRotation(_Inout_ XMVECTOR& outQuaternion, _In_ FLOAT anim
 	outQuaternion = ConvertQuaternionToVector(quaternion.Normalize());
 }
 
-/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
-TODO: Model::interpolateScaling() 구현
--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
+
 void Model::interpolateScaling(_Inout_ XMFLOAT3& outScale, _In_ FLOAT animationTimeTicks, _In_ const aiNodeAnim* pNodeAnim)
 {
 	if (pNodeAnim->mNumScalingKeys == 1)

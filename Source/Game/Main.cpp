@@ -31,7 +31,7 @@ INT WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 
     
     game->AddLight(L"PointLight", L"PointLight1", XMFLOAT4(5.0f, 10.0f, -5.0f, 0.0f), color);
-    //game->AddLight(L"RotatingPointLight", L"PointLight2", XMFLOAT4(0.0f, 0.0f, -5.0f, 0.0f), color);
+    game->AddLight(L"RotatingPointLight", L"PointLight2", XMFLOAT4(0.0f, 0.0f, -5.0f, 0.0f), color);
     
     // add location of target obj/fbx model
     if (!game->Addmodel(L"Stone", L"VS", L"PS", L"../../Data/Stone/Stone.obj"))

@@ -159,7 +159,6 @@ xcopy /y /d "$(SolutionDir)..\External\Assimp\Binary\x64\Release\assimp-vc143-mt
     <ClInclude Include="Window\MainWindow.h" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Lab03.fx" />
     <FxCompile Include="PS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>

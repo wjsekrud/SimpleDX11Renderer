@@ -477,9 +477,6 @@ void Renderer::Render()
         }
     }
 
-    /*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
-TODO: animation render ±¸Çö.
--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
     for (auto it = m_models.begin(); it != m_models.end(); ++it)
     {
         // Set vertex buffer
